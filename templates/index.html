@@ -90,7 +90,7 @@
         {% endif %}
 
         <form action="/", method="POST">              <!-- when user hits submit button, it sends a POST request to the '/' route -->
-            <input type="text" name="content" id="content">         <!-- name is imp cuz thats whats we gonna call in the app.py file!! -->
+            <input type="text" name="content" id="content" required>         <!-- name is imp cuz thats whats we gonna call in the app.py file!! -->
             <input type="submit" value="Add Task" id="btn_add">
         </form>
     </div>
