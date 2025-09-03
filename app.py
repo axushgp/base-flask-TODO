@@ -47,6 +47,19 @@ def index():
 
 
 
+#now creating the Delete nd Update buttons
+
+@app.route("/delete/<int:id>")          #routing the delete option to /delete part of page with unique id called 'id'
+def delete(id:int):
+    delete_task = MyTask.query.get_or_404(id)       #quering the MyTask object for 'id'... if not possible, gives a 404 error (which wont happen ever cuz the delete button only shows if a task exists !!)
+    try:
+        db.session.delete(delete_task)
+        db.session.commit()
+        return redirect("/")
+    except Exception as e:
+        return f"ERROR: {e}"
+
+
 
 if __name__ == "__main__":
     with app.app_context():
