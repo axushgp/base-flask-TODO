@@ -39,12 +39,11 @@ def index():
         except Exception as e:
             print(f"ERROR: {e}")
             return f"ERROR: {e}"
-
+    
+    else:
     #view the current tasks
-
-
-
-    return render_template("index.html")
+        tasks = MyTask.query.order_by(MyTask.created).all()
+        return render_template("index.html", tasks=tasks)   #saving the task into a variable 'tasks' and then returning it to the template, then we can use the 'tasks' variable for any kind of logics we want to apply in index page
 
 
 
