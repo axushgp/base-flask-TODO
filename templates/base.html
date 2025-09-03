@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    {% block head %}{% endblock %}
+    {% block head %}{% endblock %} <!-- now we can directly use just this line to edit body(s) and head(s) in every new html file/page of website -->
 </head>
 <body>
+    <h3>Yo! - to be printed on every html page!</h3>
     {% block body %}{% endblock %}
 </body>
 </html>
