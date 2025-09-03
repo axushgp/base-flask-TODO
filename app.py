@@ -60,6 +60,22 @@ def delete(id:int):
         return f"ERROR: {e}"
 
 
+#adding the update button + functionality
+@app.route("/update/<int:id>", methods=['POST','GET'])          #routing the update option to /update part of page with unique id called 'id'
+def update(id:int):
+    task = MyTask.query.get_or_404(id)       #quering the MyTask object for 'id'... if not possible, gives a 404 error (which wont happen ever cuz the update button only shows if a task exists !!)
+    if request.method == 'POST':        #we check if the user is sending/POSTing smth, then we're gonna request it and update the current task.content with the new requested 'content'......
+        task.content = request.form['content']
+        try:
+            db.session.commit()             #, then commit into the database 
+            return redirect("/")            #then redirect to Homepage
+        except Exception as e:
+            return f"ERROR: {e}"
+
+    else:                               #if user is not sending/POSTing smth, then we just render the update.html page with the current task
+        return render_template("update.html", task=task)    
+
+
 
 if __name__ == "__main__":
     with app.app_context():
