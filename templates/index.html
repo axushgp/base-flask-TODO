@@ -58,26 +58,38 @@
 {% block body %}
 
 <h1>WELCOME to MEra APP</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In eum vero perspiciatis quibusdam dolore dicta quia, saepe molestias, adipisci quo ipsam molestiae ratione eos quas error aliquid ipsum. Corporis, harum.</p>
     <div class="content">
         <h1>TASK SMASH 2.O</h1>
+
+        {%if tasks | length<1 %}
+        <h3>No Tasks Added Yet.. ADD SOME:</h3>
+        {%else%}
         <table>
             <tr>                                 <!--table row tr -->
                 <th>Task Name</th>               <!--table head th -->
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
+            {% for task in tasks %}
             <tr>
-                <td>Sample Task</td>            <!--table data td -->
-                <td>In Progress</td>
-                <td>
-                    <button>Complete</button>   
-                    <button>Delete</button>
+                <td>{{ task.content }}</td>            <!--table data td -->
+                <td>{{ 'Complete' if task.complete else 'In Progress' }}</td>
+                <td>{{ task.created.strftime("%Y-%m-%d") }}</td>
+                <td> 
+                    <a href="/delete/{{ task.id }}">Delete</a> 
+                    <br/>
+                    <a href="/update/{{ task.id }}">Edit</a>
                 </td>
+                <td>
+                    <button>Complete</button>   <!-- SILLY BUTTONS (will add functionality later)-->
+                    <button>Delete</button>     <!--SILLY BUTTONS (will add functionality later)-->
+                </td>
+            {% endfor %}
             </tr>
         </table>
+        {% endif %}
 
-        <form action="">
+        <form action="/", method="POST">              <!-- when user hits submit button, it sends a POST request to the '/' route -->
             <input type="text" name="content" id="content">         <!-- name is imp cuz thats whats we gonna call in the app.py file!! -->
             <input type="submit" value="Add Task" id="btn_add">
         </form>
